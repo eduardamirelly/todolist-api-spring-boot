@@ -58,7 +58,7 @@ public class TaskController {
     if (task == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa não encontrada.");
     }
-    
+
     var idUser = request.getAttribute("idUser");
 
     if (!task.getIdUser().equals(idUser)) {
@@ -66,7 +66,9 @@ public class TaskController {
     }
 
     Utils.copyNonNullProperties(taskModel, task);
-    return ResponseEntity.status(HttpStatus.ACCEPTED).body(this.taskRepository.save(task));
+
+    var taskUpdated = this.taskRepository.save(task);
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(taskUpdated);
   }
 
 }
